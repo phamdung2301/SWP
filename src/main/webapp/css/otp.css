@@ -1,0 +1,138 @@
+/* ===== OTP Card ===== */
+.otp-card {
+    text-align: center;
+    width: 100%;
+    max-width: 520px;
+    min-height: 240px;
+    padding: 28px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.otp-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.otp-card .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+/* ===== Admin Info Box ===== */
+.admin-info {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border: 2px solid #2196f3;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0 24px 0;
+    color: #1976d2;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+}
+
+.admin-info strong {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.admin-info strong i {
+    font-size: 1.2rem;
+}
+
+/* ===== OTP Input Fields ===== */
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.otp-inputs input {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #666;
+    background: #111;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.otp-inputs input:focus {
+    border-color: #00c6ff;
+    background: #222;
+    outline: none;
+    box-shadow: 0 0 8px #00c6ff;
+}
+
+/* ===== Verify Button ===== */
+.btn-verify {
+    width: 70%;
+    padding: 14px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #00c6ff, #7d2ae8);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.06s ease, opacity 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+.btn-verify:hover { opacity: 0.9; }
+.btn-verify:active { transform: translateY(1px); }
+.btn-verify[disabled], .btn-verify.is-disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Readonly look for OTP boxes when locked */
+    .otp-inputs input.readonly {
+        background: #1a1a1a;
+        border-color: #444;
+        color: #888;
+    }
+
+/* Make containers 70% width and centered; buttons fill 100% of containers */
+.otp-card form#otp-form { width: auto; margin: 0 auto; }
+.resend-section a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Error Messages ===== */
+.error {
+    background: #ff4d4f;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.success {
+    background: #28a745;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+/* Stacked button container to keep full width and even spacing */
+.btn-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center; /* center child buttons horizontally */
+}

@@ -1,0 +1,152 @@
+/* ===== Forgot Card ===== */
+.forgot-card {
+    width: 420px;
+    min-height: 320px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 40px;
+    z-index: 1;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 100px;
+}
+
+.forgot-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.forgot-card .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* Input */
+.forgot-card input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+.forgot-card input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.forgot-card input:focus {
+    outline: none;
+    border-color: #00c6ff;
+    box-shadow: 0 0 6px #00c6ff;
+}
+
+/* Submit button */
+.btn-forgot {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.btn-forgot:hover {
+    opacity: 0.85;
+}
+
+/* Alt links */
+.alt-links {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+.alt-links a {
+    color: #00c6ff;
+    text-decoration: none;
+}
+.alt-links a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Password Container ===== */
+.password-container {
+    position: relative;
+    margin: 12px 0;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 14px 45px 14px 14px;
+    margin: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.password-container input:focus {
+    outline: none;
+    border-color: #00c6ff;
+    box-shadow: 0 0 6px #00c6ff;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.password-toggle:focus {
+    outline: none;
+    color: #00c6ff;
+}
+
+/* Error & Success */
+.error {
+    background: rgba(255, 0, 0, 0.15);
+    color: #fff!important;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.msg {
+    background: rgba(0, 255, 0, 0.15);
+    color: #fff!important;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .forgot-card {
+        width: 100%;
+        max-width: 420px;
+        margin-right: 0;
+    }
+}

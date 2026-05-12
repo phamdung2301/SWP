@@ -1,0 +1,132 @@
+/**
+ * Navigation Hover Fix CSS
+ * Fixes flickering dropdown menus when hovering across navigation items
+ */
+
+/* Fix flickering by creating a hover zone */
+.nav-item.dropdown {
+    position: relative;
+}
+
+/* Create invisible bridge between nav-item and dropdown-menu */
+.nav-item.dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -10px;
+    right: -10px;
+    height: 12px;
+    background: transparent;
+    z-index: 9997;
+    pointer-events: auto;
+}
+
+/* Ensure dropdown menu has proper positioning */
+.nav-item.dropdown .dropdown-menu {
+    margin-top: -4px !important;
+    border-top: 4px solid transparent !important;
+}
+
+/* Fix hover transitions to prevent flickering */
+.nav-item.dropdown .dropdown-menu {
+    transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out, transform 0.15s ease-in-out !important;
+    transition-delay: 0.05s !important;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    transition-delay: 0s !important;
+}
+
+/* Prevent flickering by ensuring consistent hover states */
+.nav-item.dropdown:hover,
+.nav-item.dropdown:hover::before {
+    z-index: 1000 !important;
+}
+
+/* Fix for adjacent dropdown items */
+.nav-item.dropdown + .nav-item.dropdown {
+    margin-left: 0 !important;
+}
+
+/* Ensure dropdown menu stays visible when hovering over it */
+.nav-item.dropdown .dropdown-menu:hover {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 1001 !important;
+}
+
+/* Auto-hide dropdown when not hovering */
+.nav-item.dropdown:not(:hover) .dropdown-menu {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Exception for manually opened dropdowns */
+.nav-item.dropdown.show .dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Fix for mobile devices */
+@media (max-width: 768px) {
+    .nav-item.dropdown::before {
+        display: none !important;
+    }
+    
+    .nav-item.dropdown .dropdown-menu {
+        margin-top: 0 !important;
+        border-top: none !important;
+    }
+}
+
+/* Additional fix for very fast mouse movements */
+.nav-item.dropdown {
+    overflow: visible !important;
+}
+
+.nav-item.dropdown .dropdown-menu {
+    pointer-events: auto !important;
+    will-change: opacity, visibility, transform !important;
+}
+
+/* Fix for specific dropdown items that might have different widths */
+.nav-item.dropdown .dropdown-menu {
+    min-width: max-content !important;
+    white-space: nowrap !important;
+}
+
+/* Ensure proper z-index stacking for multiple dropdowns */
+.nav-menu .nav-item.dropdown:nth-child(1) { z-index: 1000; }
+.nav-menu .nav-item.dropdown:nth-child(2) { z-index: 1001; }
+.nav-menu .nav-item.dropdown:nth-child(3) { z-index: 1002; }
+.nav-menu .nav-item.dropdown:nth-child(4) { z-index: 1003; }
+.nav-menu .nav-item.dropdown:nth-child(5) { z-index: 1004; }
+.nav-menu .nav-item.dropdown:nth-child(6) { z-index: 1005; }
+
+/* Fix for dropdown menu positioning */
+.nav-item.dropdown .dropdown-menu {
+    position: absolute !important;
+    top: calc(100% + 4px) !important;
+    left: 0 !important;
+    right: auto !important;
+    transform-origin: top left !important;
+}
+
+/* Prevent dropdown from closing when moving mouse quickly */
+.nav-item.dropdown .dropdown-menu {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Fix for dropdown items hover */
+.dropdown-item {
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out !important;
+}
+
+/* Ensure dropdown menu doesn't interfere with other elements */
+.nav-item.dropdown .dropdown-menu {
+    isolation: isolate !important;
+    contain: layout style !important;
+}

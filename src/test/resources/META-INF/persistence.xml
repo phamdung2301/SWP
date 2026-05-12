@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+  <persistence-unit name="LiteFlowPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <!-- Auth entities -->
+    <class>com.liteflow.model.auth.User</class>
+    <class>com.liteflow.model.auth.UserSession</class>
+    <class>com.liteflow.model.auth.OtpToken</class>
+    <class>com.liteflow.model.auth.AuditLog</class>
+    <class>com.liteflow.model.auth.Role</class>
+    <class>com.liteflow.model.auth.Employee</class>
+    <class>com.liteflow.model.auth.UserRole</class>
+
+    <!-- Scheduling entities -->
+    <class>com.liteflow.model.auth.ShiftTemplate</class>
+    <class>com.liteflow.model.auth.EmployeeShiftAssignment</class>
+    <class>com.liteflow.model.auth.EmployeeShift</class>
+
+    <!-- Inventory entities -->
+    <class>com.liteflow.model.inventory.Category</class>
+    <class>com.liteflow.model.inventory.Inventory</class>
+    <class>com.liteflow.model.inventory.InventoryLog</class>
+    <class>com.liteflow.model.inventory.Order</class>
+    <class>com.liteflow.model.inventory.OrderDetail</class>
+    <class>com.liteflow.model.inventory.Product</class>
+    <class>com.liteflow.model.inventory.ProductCategory</class>
+    <class>com.liteflow.model.inventory.ProductStock</class>
+    <class>com.liteflow.model.inventory.ProductVariant</class>
+    <class>com.liteflow.model.inventory.Room</class>
+    <class>com.liteflow.model.inventory.Table</class>
+    <class>com.liteflow.model.inventory.Reservation</class>
+    <class>com.liteflow.model.inventory.ReservationItem</class>
+    <class>com.liteflow.model.inventory.TableSession</class>
+    <class>com.liteflow.model.inventory.PaymentTransaction</class>
+    <class>com.liteflow.model.inventory.UserInteraction</class>
+
+    <!-- Payroll entities -->
+    <class>com.liteflow.model.payroll.PayPeriod</class>
+    <class>com.liteflow.model.payroll.PayrollRun</class>
+    <class>com.liteflow.model.payroll.PayrollEntry</class>
+    <class>com.liteflow.model.payroll.PayrollAdjustment</class>
+    <class>com.liteflow.model.payroll.PayPolicy</class>
+    <class>com.liteflow.model.payroll.EmployeeCompensation</class>
+
+    <!-- Timesheet entities -->
+    <class>com.liteflow.model.timesheet.ShiftPayRule</class>
+    <class>com.liteflow.model.timesheet.EmployeeShiftTimesheet</class>
+    <class>com.liteflow.model.timesheet.EmployeeAttendance</class>
+    <class>com.liteflow.model.timesheet.PersonalSchedule</class>
+    <class>com.liteflow.model.timesheet.ForgotClockRequest</class>
+    <class>com.liteflow.model.timesheet.LeaveRequest</class>
+
+    <!-- Procurement entities -->
+    <class>com.liteflow.model.procurement.Supplier</class>
+    <class>com.liteflow.model.procurement.SupplierSLA</class>
+    <class>com.liteflow.model.procurement.PurchaseOrder</class>
+    <class>com.liteflow.model.procurement.PurchaseOrderItem</class>
+    <class>com.liteflow.model.procurement.GoodsReceipt</class>
+    <class>com.liteflow.model.procurement.GoodsReceiptItem</class>
+    <class>com.liteflow.model.procurement.Invoice</class>
+    <class>com.liteflow.model.procurement.InvoiceItem</class>
+
+    <!-- External info entities -->
+    <class>com.liteflow.model.external.HolidayCalendar</class>
+    <class>com.liteflow.model.external.ExchangeRate</class>
+
+    <!-- Alert System entities -->
+    <class>com.liteflow.model.alert.AlertConfiguration</class>
+    <class>com.liteflow.model.alert.NotificationChannel</class>
+    <class>com.liteflow.model.alert.AlertHistory</class>
+    <class>com.liteflow.model.alert.GPTInteraction</class>
+    <class>com.liteflow.model.alert.UserAlertPreference</class>
+
+    <!-- Notice Board entities -->
+    <class>com.liteflow.model.notice.Notice</class>
+
+    <properties>
+      <!-- H2 in-memory database for testing -->
+      <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MSSQLServer"/>
+      <property name="jakarta.persistence.jdbc.user" value="sa"/>
+      <property name="jakarta.persistence.jdbc.password" value=""/>
+
+      <!-- Hibernate settings for H2 -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>

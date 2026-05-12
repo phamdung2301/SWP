@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee                              https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <display-name>LiteFlow</display-name>
+    <!-- Config Google OAuth -->
+    <context-param>
+        <param-name>google.clientId</param-name>
+        <param-value>YOUR_CLIENT_ID</param-value>
+    </context-param>
+    <context-param>
+        <param-name>google.clientSecret</param-name>
+        <param-value>YOUR_CLIENT_SECRET</param-value>
+    </context-param>
+    <context-param>
+        <param-name>google.redirectUri</param-name>
+        <param-value>http://localhost:8080/LiteFlow/oauth2callback</param-value>
+    </context-param>
+    <welcome-file-list>
+        <welcome-file>auth/login.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.inventory.ProductServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <multipart-config>
+            <max-file-size>5242880</max-file-size>
+            <!-- 5MB -->
+            <max-request-size>5242880</max-request-size>
+            <!-- 5MB -->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+    <!-- Room Table Servlet Configuration -->
+    <servlet>
+        <servlet-name>RoomTableServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.inventory.RoomTableServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <!-- 10MB -->
+            <max-request-size>10485760</max-request-size>
+            <!-- 10MB -->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RoomTableServlet</servlet-name>
+        <url-pattern>/roomtable</url-pattern>
+    </servlet-mapping>
+    <!-- Employee Servlet Configuration -->
+    <servlet>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.employee.EmployeeServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/employees</url-pattern>
+    </servlet-mapping>
+    <!-- Schedule Servlet Configuration -->
+    <servlet>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.schedule.ScheduleServlet</servlet-class>
+        <load-on-startup>5</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <url-pattern>/schedule</url-pattern>
+    </servlet-mapping>
+    <!-- Test Employee Servlet Configuration - REMOVED (class not found) -->
+    <!-- Purchase Order Servlet Configuration -->
+    <servlet>
+        <servlet-name>PurchaseOrderServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.procurement.PurchaseOrderServlet</servlet-class>
+        <load-on-startup>10</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PurchaseOrderServlet</servlet-name>
+        <url-pattern>/procurement/po</url-pattern>
+    </servlet-mapping>
+    <!-- PO Test Servlet Configuration - REMOVED -->
+    <!-- Supplier Servlet Configuration -->
+    <servlet>
+        <servlet-name>SupplierServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.procurement.SupplierServlet</servlet-class>
+        <load-on-startup>12</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SupplierServlet</servlet-name>
+        <url-pattern>/procurement/supplier</url-pattern>
+    </servlet-mapping>
+    <!-- PO Items Servlet Configuration -->
+    <servlet>
+        <servlet-name>POItemsServlet</servlet-name>
+        <servlet-class>com.liteflow.controller.procurement.POItemsServlet</servlet-class>
+        <load-on-startup>13</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>POItemsServlet</servlet-name>
+        <url-pattern>/procurement/po-items</url-pattern>
+    </servlet-mapping>
+    <!-- Filter Configuration - Order matters! -->
+    
+    <!-- 1. Character Encoding Filter (must run first) -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 2. Common Filter (logging and additional encoding) -->
+    <filter>
+        <filter-name>CommonFilter</filter-name>
+        <filter-class>com.liteflow.filter.CommonFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CommonFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 3. Authentication Filter (runs after encoding) -->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.liteflow.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 4. Login Filter (specific to /login) -->
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.liteflow.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
+    
+    <!-- 5. Logout Filter (specific to /logout) -->
+    <filter>
+        <filter-name>LogoutFilter</filter-name>
+        <filter-class>com.liteflow.filter.LogoutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LogoutFilter</filter-name>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
+</web-app>

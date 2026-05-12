@@ -1,0 +1,406 @@
+/* AI Agent Configuration Page Styles */
+
+.ai-config-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.config-header {
+    text-align: left;
+    margin-bottom: var(--space-6);
+}
+
+.config-header h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--gray-900);
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.config-header h1 i {
+    color: var(--color-primary);
+}
+
+.config-header .subtitle {
+    color: var(--gray-600);
+    font-size: var(--text-base);
+}
+
+/* Tabs Navigation */
+.config-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    border-bottom: 2px solid var(--gray-200);
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.tab-btn {
+    padding: var(--space-3) var(--space-5);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--gray-600);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    white-space: nowrap;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: var(--color-primary);
+    background: var(--primary-50);
+}
+
+.tab-btn.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: var(--font-semibold);
+}
+
+.tab-btn i {
+    font-size: var(--text-lg);
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    text-align: center;
+    padding: var(--space-8);
+    color: var(--gray-600);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--gray-200);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--space-4);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Messages */
+.error-message, .success-message {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    animation: slideDown 0.3s ease-out;
+}
+
+.error-message {
+    background: var(--error-50);
+    color: var(--error-700);
+    border: 1px solid var(--error-200);
+}
+
+.success-message {
+    background: var(--success-50);
+    color: var(--success-700);
+    border: 1px solid var(--success-200);
+}
+
+/* Config Content */
+.config-content {
+    background: var(--surface-elevated);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-primary);
+    margin-bottom: var(--space-6);
+}
+
+.config-section {
+    margin-bottom: var(--space-6);
+}
+
+.config-section:last-child {
+    margin-bottom: 0;
+}
+
+.config-section-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--gray-900);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.config-item {
+    margin-bottom: var(--space-5);
+    padding: var(--space-4);
+    background: #fff;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    transition: all var(--transition-base);
+}
+
+.config-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.config-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-3);
+}
+
+.config-item-label {
+    flex: 1;
+}
+
+.config-item-label .label {
+    font-weight: var(--font-semibold);
+    color: var(--gray-900);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-1);
+    display: block;
+}
+
+.config-item-label .description {
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+.config-item-value {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.config-item-value .default-badge {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-medium);
+}
+
+.config-item-value .default-badge.is-default {
+    background: var(--success-50);
+    color: var(--success-700);
+}
+
+/* Form Inputs */
+.config-input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    transition: all var(--transition-base);
+    font-family: var(--font-family-primary);
+}
+
+.config-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.config-input.number {
+    max-width: 200px;
+}
+
+.config-input.time {
+    max-width: 150px;
+}
+
+.config-input.string {
+    max-width: 400px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--gray-300);
+    transition: var(--transition-base);
+    border-radius: 28px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition-base);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--color-primary);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+/* Action Buttons */
+.config-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: flex-end;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--gray-200);
+}
+
+.btn {
+    padding: var(--space-3) var(--space-5);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-family-primary);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-600);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: var(--gray-600);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: var(--gray-700);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+}
+
+.btn-outline:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-400);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Validation Messages */
+.validation-error {
+    color: var(--error-600);
+    font-size: var(--text-sm);
+    margin-top: var(--space-1);
+    display: none;
+}
+
+.config-item.has-error .validation-error {
+    display: block;
+}
+
+.config-item.has-error .config-input {
+    border-color: var(--error-500);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ai-config-container {
+        padding: var(--space-4);
+    }
+    
+    .config-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .tab-btn {
+        font-size: var(--text-sm);
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    .config-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .config-input.number,
+    .config-input.time,
+    .config-input.string {
+        max-width: 100%;
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: var(--space-8);
+    color: var(--gray-500);
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: var(--space-4);
+    opacity: 0.5;
+}
+

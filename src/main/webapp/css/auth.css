@@ -1,0 +1,176 @@
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #000;
+    color: #fff;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ===== Container layout ===== */
+.auth-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ===== Background effects ===== */
+.auth-container::before,
+.auth-container::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    animation: circleFadeIn 1.5s ease forwards, circleBreath 6s ease-in-out infinite;
+}
+.auth-container::before {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #00c6ff, transparent 70%);
+    top: -100px;
+    left: 800px;
+}
+.auth-container::after {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #7d2ae8, transparent 70%);
+    bottom: -80px;
+    right: -80px;
+    animation-delay: 0.8s, 2s;
+}
+
+/* ===== Welcome section (bên trái) ===== */
+.welcome-section {
+    flex: 1;
+    z-index: 1;
+}
+.welcome-section h1 {
+    font-size: 4rem;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-left: 50px;
+}
+.typing-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #fff;
+    width: 0;
+    animation: typing 2s steps(10, end) forwards, blink 0.7s step-end infinite;
+}
+.skip-btn {
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 50px;
+    padding: 12px 28px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 3s;
+}
+.skip-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* plain link used for small secondary actions */
+.btn-plain {
+    color: #fff;
+    text-decoration: underline; /* show underline for signup link */
+    font-weight: 600;
+}
+.btn-plain:hover {
+    opacity: 0.9;
+}
+
+/* ===== Auth card (bên phải) ===== */
+.auth-card {
+    width: 450px;
+    min-height: 600px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 40px;
+    z-index: 1;
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 100px;
+}
+
+/* ===== OTP Layout - Use same layout as login ===== */
+.auth-container:has(.otp-card) .welcome-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 60px;
+    z-index: 1;
+}
+
+.auth-container:has(.otp-card) {
+    justify-content: space-between;
+}
+
+.auth-container:has(.otp-card) .auth-card {
+    margin-right: 100px;
+}
+
+/* ===== Animations ===== */
+@keyframes typing { from { width: 0 } to { width: 60% } }
+@keyframes blink { 50% { border-color: transparent; } }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes circleFadeIn {
+    from { opacity: 0; transform: scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes circleBreath {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+    .auth-container {
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+    .welcome-section h1 {
+        margin: 0 0 20px 0;
+        text-align: center;
+        font-size: 3rem;
+    }
+    .skip-btn {
+        margin: 0 auto 30px;
+        display: block;
+        text-align: center;
+    }
+    .auth-card {
+        width: 100%;
+        max-width: 420px;
+        margin-right: 0;
+    }
+}

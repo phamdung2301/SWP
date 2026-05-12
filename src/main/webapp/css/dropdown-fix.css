@@ -1,0 +1,197 @@
+/**
+ * Dropdown Fix CSS
+ * Ensures dropdown menus work properly after CSS updates
+ */
+
+/* Force dropdown visibility and positioning */
+.nav-item.dropdown {
+    position: relative !important;
+    z-index: 1000 !important;
+}
+
+.nav-item.dropdown .dropdown-menu {
+    display: none !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    min-width: 200px !important;
+    z-index: 9999 !important;
+    padding: 8px 0 !important;
+    margin-top: 4px !important;
+}
+
+/* Only show dropdown on hover of the parent nav-item, not the dropdown-menu itself */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+.nav-item.dropdown.show .dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+/* Dropdown items styling */
+.dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 12px 16px !important;
+    color: #374151 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    transition: all 0.2s ease !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none !important;
+}
+
+.dropdown-item:hover {
+    background: #f9fafb !important;
+    color: #0080FF !important;
+    transform: translateX(4px) !important;
+}
+
+.dropdown-item i {
+    font-size: 16px !important;
+    width: 20px !important;
+    text-align: center !important;
+}
+
+/* Dropdown toggle styling */
+.dropdown-toggle {
+    cursor: pointer !important;
+    user-select: none !important;
+}
+
+.dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Ensure proper z-index stacking */
+.main-nav {
+    position: relative !important;
+    z-index: 1000 !important;
+}
+
+.nav-item.dropdown {
+    z-index: 1001 !important;
+}
+
+.nav-item.dropdown .dropdown-menu {
+    z-index: 1002 !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .nav-item.dropdown .dropdown-menu {
+        position: static !important;
+        display: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .nav-item.dropdown.show .dropdown-menu {
+        display: block !important;
+    }
+    
+    .dropdown-item {
+        color: #ffffff !important;
+        padding: 8px 16px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #ffffff !important;
+        transform: none !important;
+    }
+}
+
+/* Animation for smooth dropdown */
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.nav-item.dropdown.show .dropdown-menu {
+    animation: dropdownFadeIn 0.2s ease-out !important;
+}
+
+/* Fix for procurement menu specifically */
+.nav-item.dropdown:has(.nav-link:contains("Mua sắm")) .dropdown-menu {
+    min-width: 220px !important;
+}
+
+/* Ensure dropdown doesn't get hidden behind other elements */
+.nav-item.dropdown .dropdown-menu {
+    pointer-events: auto !important;
+}
+
+/* Fix for any potential overflow issues */
+.nav-item.dropdown {
+    overflow: visible !important;
+}
+
+.nav-item.dropdown .dropdown-menu {
+    overflow: visible !important;
+}
+
+/* Fix flickering issue - Create invisible bridge between nav-item and dropdown */
+.nav-item.dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: transparent;
+    z-index: 9998;
+    pointer-events: auto;
+}
+
+/* Prevent flickering by ensuring smooth hover transitions */
+.nav-item.dropdown .dropdown-menu {
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Fix hover gap issue */
+.nav-item.dropdown:hover::after {
+    background: transparent;
+}
+
+/* Ensure dropdown stays open when hovering over the dropdown menu itself */
+.nav-item.dropdown .dropdown-menu:hover {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Prevent flickering by adding a small delay */
+.nav-item.dropdown .dropdown-menu {
+    transition-delay: 0.1s !important;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    transition-delay: 0s !important;
+}

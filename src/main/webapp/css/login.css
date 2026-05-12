@@ -1,0 +1,225 @@
+/* ===== Login Card ===== */
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.login-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+
+/* ===== Input ===== */
+.login-card input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+.login-card input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.login-card input:focus {
+    outline: none;
+    border-color: #7d2ae8;
+}
+
+/* ===== Password Container ===== */
+.password-container {
+    position: relative;
+    margin: 12px 0;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 14px 45px 14px 14px;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.password-container input:focus {
+    outline: none;
+    border-color: #7d2ae8;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.password-toggle:focus {
+    outline: none;
+    color: #7d2ae8;
+}
+
+/* ===== Options (remember me + forgot) ===== */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+.options input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #7d2ae8;
+    cursor: pointer;
+}
+.options a {
+    color: #4dabf7;
+    text-decoration: none;
+}
+.options a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Login Button ===== */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #00c6ff, #7d2ae8);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.btn-login:hover {
+    opacity: 0.85;
+}
+
+/* ===== Divider ===== */
+.divider {
+    text-align: center;
+    margin: 30px 0 20px;
+    color: rgba(255, 255, 255, 0.6);
+    position: relative;
+}
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+/* ===== Social Login ===== */
+.social-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.google-btn i {
+    color: #DB4437;
+    font-size: 1.2rem;
+}
+.google-btn:hover { background: #f1f1f1; }
+
+/* ===== Alt Links & Footer ===== */
+.alt-links {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.alt-links a {
+    color: #4dabf7;
+    text-decoration: none;
+}
+.alt-links a:hover {
+    text-decoration: underline;
+}
+.footer-links {
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.85rem;
+}
+.footer-links a {
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+.footer-links a:hover { color: #fff; }
+
+/* ===== Error Box ===== */
+.error {
+    background: #ff4d4f;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #fff!important;
+}
+
+/* ===== Success Box (match OTP style) ===== */
+.msg,
+.success {
+    background: #28a745;            /* same green as otp.css */
+    color: #fff!important;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

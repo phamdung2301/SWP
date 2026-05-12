@@ -1,0 +1,395 @@
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #000;
+    color: #fff;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ===== Layout ===== */
+.signup-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Welcome section */
+.welcome-section {
+    flex: 1;
+}
+.welcome-section h1 {
+    font-size: 5rem;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-left: 50px;
+}
+.typing-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #fff;
+    width: 0;
+    animation: typing 2s steps(10, end) forwards, blink 0.7s step-end infinite;
+}
+.skip-btn {
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 50px;
+    padding: 12px 28px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 3s;
+}
+.skip-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* ===== Signup Card ===== */
+.signup-card {
+    width: 450px;
+    min-height: 650px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 40px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 100px;
+}
+.signup-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+.signup-card .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+.signup-card input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+.signup-card input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.signup-card input:focus {
+    outline: none;
+    border-color: #00c6ff;
+    box-shadow: 0 0 6px #00c6ff;
+}
+
+/* ===== Password Container ===== */
+.password-container {
+    position: relative;
+    margin: 12px 0;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 14px 45px 14px 14px;
+    margin: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.password-container input:focus {
+    outline: none;
+    border-color: #00c6ff;
+    box-shadow: 0 0 6px #00c6ff;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.password-toggle:focus {
+    outline: none;
+    color: #00c6ff;
+}
+
+/* Error & success */
+.error {
+    /* Thông báo lỗi chung: nền nhẹ, chữ nổi rõ nhưng không chói */
+    background: rgba(255, 0, 0, 0.08);
+    color: #ffdede;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.error-text {
+    /* Văn bản lỗi nhỏ cạnh input (không là khối đỏ) */
+    color: #ffb3b3;
+    font-size: 0.9em;
+    margin-top: 8px; /* khoảng cách nhỏ phía trên lỗi để đẩy input bên dưới vừa đủ */
+    display: none; /* ẩn mặc định, JS sẽ bật khi cần */
+    transition: all 0.15s ease-in-out;
+}
+
+/* Khi span có nội dung, hiển thị với animation slide-down */
+.error-text:not(:empty) {
+    display: block;
+    animation: slideDown 0.18s ease-out;
+}
+.error-text .err-icon {
+    margin-right: 8px;
+    color: #ff7b7b;
+    width: 14px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-6px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Ẩn marker mặc định của trình duyệt (khi dùng :invalid) để tránh chấm đỏ bên cạnh input trên Chrome/Edge */
+input:invalid::-webkit-validation-bubble-message, input:invalid::-webkit-input-placeholder {
+    display: none;
+}
+input::-webkit-contacts-auto-fill-button, input::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+/* Thay đổi viền khi input invalid (nhẹ) */
+/* Mặc định không show viền đỏ của trình duyệt trước khi user submit */
+input:invalid {
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+/* Sau khi submit và form chưa valid, thêm class .was-validated để show viền đỏ */
+.was-validated input:invalid {
+    border-color: rgba(255, 0, 0, 0.35);
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.08);
+}
+.msg, .success-text {
+    background: rgba(0, 255, 0, 0.15);
+    color: #33cc33;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* ===== OTP Section ===== */
+.otp-section {
+    margin-top: 15px;
+    text-align: center;
+}
+.btn-otp {
+    background: #00c6ff;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-otp:hover {
+    background: #0090cc;
+}
+.otp-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease;
+}
+.otp-box.hidden {
+    display: none;
+}
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0;
+}
+.otp-inputs input {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #666;
+    background: #111;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.otp-inputs input:focus {
+    border-color: #00c6ff;
+    background: #222;
+    outline: none;
+    box-shadow: 0 0 8px #00c6ff;
+}
+.btn-verify {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #00c6ff, #7d2ae8);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+.btn-verify:hover {
+    opacity: 0.9;
+    transform: scale(1.01);
+}
+
+/* ===== Divider & Social ===== */
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: rgba(255, 255, 255, 0.6);
+    position: relative;
+}
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.google-btn i {
+    color: #DB4437;
+    font-size: 1.2rem;
+}
+.google-btn:hover {
+    background: #f1f1f1;
+}
+
+/* ===== Alt links ===== */
+.alt-links {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+.alt-links a {
+    color: #00c6ff;
+    text-decoration: none;
+}
+.alt-links a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Animations ===== */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 60%; }
+}
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes circleFadeIn {
+    from { opacity: 0; transform: scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes circleBreath {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+    .signup-container {
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+    .welcome-section h1 {
+        margin: 0 0 20px 0;
+        text-align: center;
+        font-size: 3rem;
+    }
+    .skip-btn {
+        margin: 0 auto 30px;
+        display: block;
+        text-align: center;
+    }
+    .signup-card {
+        width: 100%;
+        max-width: 420px;
+        margin-right: 0;
+    }
+}
