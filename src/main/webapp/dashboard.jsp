@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.liteflow.service.inventory.RoomTableService" %>
+<%@ page import="com.liteflow.modules.inventory.service.RoomTableService" %>
 <jsp:include page="includes/header.jsp">
   <jsp:param name="page" value="dashboard" />
   <jsp:param name="currentDate" value="Thứ Hai, 06/10/2025" />

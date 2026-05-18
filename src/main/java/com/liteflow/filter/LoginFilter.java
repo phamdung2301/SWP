@@ -1,8 +1,8 @@
 package com.liteflow.filter;
 
-import com.liteflow.model.auth.User;
+import com.liteflow.modules.auth.model.User;
 import com.liteflow.security.JwtUtil;
-import com.liteflow.service.auth.UserService;
+import com.liteflow.modules.auth.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;

@@ -19,7 +19,7 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.inventory.ProductServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.inventory.controller.ProductServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <multipart-config>
             <max-file-size>5242880</max-file-size>
@@ -36,7 +36,7 @@
     <!-- Room Table Servlet Configuration -->
     <servlet>
         <servlet-name>RoomTableServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.inventory.RoomTableServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.inventory.controller.RoomTableServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
         <multipart-config>
             <max-file-size>10485760</max-file-size>
@@ -53,7 +53,7 @@
     <!-- Employee Servlet Configuration -->
     <servlet>
         <servlet-name>EmployeeServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.employee.EmployeeServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.hr.controller.EmployeeServlet</servlet-class>
         <load-on-startup>3</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -63,7 +63,7 @@
     <!-- Schedule Servlet Configuration -->
     <servlet>
         <servlet-name>ScheduleServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.schedule.ScheduleServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.hr.controller.ScheduleServlet</servlet-class>
         <load-on-startup>5</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -74,7 +74,7 @@
     <!-- Purchase Order Servlet Configuration -->
     <servlet>
         <servlet-name>PurchaseOrderServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.procurement.PurchaseOrderServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.procurement.controller.PurchaseOrderServlet</servlet-class>
         <load-on-startup>10</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -85,7 +85,7 @@
     <!-- Supplier Servlet Configuration -->
     <servlet>
         <servlet-name>SupplierServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.procurement.SupplierServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.procurement.controller.SupplierServlet</servlet-class>
         <load-on-startup>12</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -95,7 +95,7 @@
     <!-- PO Items Servlet Configuration -->
     <servlet>
         <servlet-name>POItemsServlet</servlet-name>
-        <servlet-class>com.liteflow.controller.procurement.POItemsServlet</servlet-class>
+        <servlet-class>com.liteflow.modules.procurement.controller.POItemsServlet</servlet-class>
         <load-on-startup>13</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -121,7 +121,7 @@
     <!-- 2. Common Filter (logging and additional encoding) -->
     <filter>
         <filter-name>CommonFilter</filter-name>
-        <filter-class>com.liteflow.filter.CommonFilter</filter-class>
+        <filter-class>com.liteflow.modules.core.filter.CommonFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CommonFilter</filter-name>
@@ -131,7 +131,7 @@
     <!-- 3. Authentication Filter (runs after encoding) -->
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
-        <filter-class>com.liteflow.filter.AuthenticationFilter</filter-class>
+        <filter-class>com.liteflow.modules.core.filter.AuthenticationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
@@ -141,7 +141,7 @@
     <!-- 4. Login Filter (specific to /login) -->
     <filter>
         <filter-name>LoginFilter</filter-name>
-        <filter-class>com.liteflow.filter.LoginFilter</filter-class>
+        <filter-class>com.liteflow.modules.core.filter.LoginFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
@@ -151,7 +151,7 @@
     <!-- 5. Logout Filter (specific to /logout) -->
     <filter>
         <filter-name>LogoutFilter</filter-name>
-        <filter-class>com.liteflow.filter.LogoutFilter</filter-class>
+        <filter-class>com.liteflow.modules.core.filter.LogoutFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LogoutFilter</filter-name>

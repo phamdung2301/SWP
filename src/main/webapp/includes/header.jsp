@@ -148,13 +148,28 @@
 </head>
 <body>
 
-<!-- Check user role - Define isEmployee variable -->
+<!-- Check user roles for fine-grained access control -->
+<c:set var="isAdmin" value="false" />
+<c:set var="isOwner" value="false" />
+<c:set var="isHR" value="false" />
+<c:set var="isProcurement" value="false" />
+<c:set var="isInventory" value="false" />
+<c:set var="isCashier" value="false" />
+<c:set var="isKitchen" value="false" />
 <c:set var="isEmployee" value="false" />
+
 <c:forEach var="role" items="${sessionScope.UserRoles}">
-  <c:if test="${role == 'Employee'}">
-    <c:set var="isEmployee" value="true" />
-  </c:if>
+  <c:if test="${role == 'Admin'}"><c:set var="isAdmin" value="true" /></c:if>
+  <c:if test="${role == 'Owner'}"><c:set var="isOwner" value="true" /></c:if>
+  <c:if test="${role == 'HR Officer'}"><c:set var="isHR" value="true" /></c:if>
+  <c:if test="${role == 'Procurement Officer'}"><c:set var="isProcurement" value="true" /></c:if>
+  <c:if test="${role == 'Inventory Manager'}"><c:set var="isInventory" value="true" /></c:if>
+  <c:if test="${role == 'Cashier'}"><c:set var="isCashier" value="true" /></c:if>
+  <c:if test="${role == 'Kitchen'}"><c:set var="isKitchen" value="true" /></c:if>
+  <c:if test="${role == 'Employee'}"><c:set var="isEmployee" value="true" /></c:if>
 </c:forEach>
+
+<c:set var="isSuper" value="${isAdmin || isOwner}" />
 
 <div class="app">
   <!-- Top Header Bar -->
@@ -170,8 +185,8 @@
       <div class="top-header-right">
         
         <div class="header-icons">
-          <!-- Notification Bell - Hidden for Employee role -->
-          <c:if test="${!isEmployee}">
+          <!-- Notification Bell - Only for relevant roles -->
+          <c:if test="${isSuper || isHR || isProcurement || isInventory || isCashier || isKitchen}">
             <div id="notification-bell-container"></div>
           </c:if>
           <div class="nav-item dropdown" style="margin: 0;">
@@ -215,22 +230,22 @@
   <nav class="main-nav">
     <div class="nav-content">
       <div class="nav-menu">
-        <!-- Tổng quan - link khác nhau cho Employee và Admin -->
+        <!-- Tổng quan -->
         <c:choose>
-          <c:when test="${isEmployee}">
-            <a href="${pageContext.request.contextPath}/dashboard-employee" class="nav-item ${param.page == 'dashboard-employee' ? 'active' : ''}">
+          <c:when test="${isSuper || isHR || isProcurement || isInventory}">
+            <a href="${pageContext.request.contextPath}/dashboard" class="nav-item ${param.page == 'dashboard' ? 'active' : ''}">
               <i class='bx bxs-dashboard'></i> Tổng quan
             </a>
           </c:when>
           <c:otherwise>
-            <a href="${pageContext.request.contextPath}/dashboard" class="nav-item ${param.page == 'dashboard' ? 'active' : ''}">
+            <a href="${pageContext.request.contextPath}/dashboard-employee" class="nav-item ${param.page == 'dashboard-employee' ? 'active' : ''}">
               <i class='bx bxs-dashboard'></i> Tổng quan
             </a>
           </c:otherwise>
         </c:choose>
         
-        <c:if test="${!isEmployee}">
-          <!-- Hàng hóa -->
+        <!-- Hàng hóa -->
+        <c:if test="${isSuper || isInventory || isProcurement}">
           <div class="nav-item dropdown ${param.page == 'products' || param.page == 'setprice' ? 'active' : ''}">
             <a href="#" class="nav-link dropdown-toggle">
               <i class='bx bxs-package'></i> Hàng hóa
@@ -245,13 +260,17 @@
               </a>
             </div>
           </div>
+        </c:if>
           
-          <!-- Phòng/Bàn -->
+        <!-- Phòng/Bàn -->
+        <c:if test="${isSuper || isCashier}">
           <a href="${pageContext.request.contextPath}/roomtable" class="nav-item ${param.page == 'rooms' ? 'active' : ''}">
             <i class='bx bx-store'></i> Phòng/Bàn
           </a>
+        </c:if>
           
-          <!-- Giao dịch -->
+        <!-- Giao dịch -->
+        <c:if test="${isSuper || isCashier}">
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle">
               <i class='bx bx-receipt'></i> Giao dịch
@@ -263,8 +282,10 @@
               </a>
             </div>
           </div>
+        </c:if>
           
-          <!-- Đối tác -->
+        <!-- Đối tác -->
+        <c:if test="${isSuper || isProcurement || isInventory}">
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle">
               <i class='bx bx-group'></i> Đối tác
@@ -276,8 +297,10 @@
               </a>
             </div>
           </div>
+        </c:if>
           
-          <!-- Mua sắm -->
+        <!-- Mua sắm -->
+        <c:if test="${isSuper || isProcurement || isInventory}">
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle">
               <i class='bx bx-shopping-bag'></i> Mua sắm
@@ -292,8 +315,10 @@
               </a>
             </div>
           </div>
+        </c:if>
           
-          <!-- Báo cáo -->
+        <!-- Báo cáo -->
+        <c:if test="${isSuper}">
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle">
               <i class='bx bx-bar-chart'></i> Báo cáo
@@ -307,14 +332,14 @@
           </div>
         </c:if>
         
-        <!-- Nhân viên - hiển thị cho tất cả (nhưng với Employee chỉ hiển thị một số mục) -->
+        <!-- Nhân viên - hiển thị lịch/chấm công cho mọi người, nhưng thiết lập chỉ cho HR/Super -->
         <div class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle">
-            <i class='bx bx-user'></i> Nhân viên
+            <i class='bx bx-user'></i> Nhân sự
             <i class='bx bx-chevron-down' style="margin-left: 4px; font-size: 14px;"></i>
           </a>
           <div class="dropdown-menu">
-            <c:if test="${!isEmployee}">
+            <c:if test="${isSuper || isHR}">
               <a href="${pageContext.request.contextPath}/employees" class="dropdown-item">
                 <i class='bx bx-group'></i> Danh sách nhân viên
               </a>
@@ -334,22 +359,29 @@
           </div>
         </div>
       </div>
+      
+      <!-- Right Side Icons -->
       <div class="nav-right">
-        <c:if test="${!isEmployee}">
+        <c:if test="${isSuper || isKitchen}">
           <a href="${pageContext.request.contextPath}/kitchen" class="nav-icon" title="Nhà bếp" target="_blank">
             <i class='bx bxs-bowl-hot'></i>
           </a>
+        </c:if>
+        <c:if test="${isSuper || isCashier}">
           <a href="${pageContext.request.contextPath}/reception" class="nav-icon" title="Lễ tân" target="_blank">
             <i class='bx bx-calendar'></i>
           </a>
+        </c:if>
+        <c:if test="${isSuper || isHR || isProcurement}">
           <div class="nav-icon" id="send-notification-icon" title="Gửi thông báo" style="cursor: pointer;">
             <i class='bx bx-mail-send'></i>
           </div>
         </c:if>
-        <!-- Thu ngân - hiển thị cho tất cả -->
-        <a href="${pageContext.request.contextPath}/cashier" class="nav-icon" title="Thu ngân" target="_blank">
-          <i class='bx bx-file'></i>
-        </a>
+        <c:if test="${isSuper || isCashier}">
+          <a href="${pageContext.request.contextPath}/cashier" class="nav-icon" title="Thu ngân (POS)" target="_blank">
+            <i class='bx bx-file'></i>
+          </a>
+        </c:if>
       </div>
     </div>
   </nav>

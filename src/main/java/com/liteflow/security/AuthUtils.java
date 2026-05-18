@@ -1,7 +1,7 @@
 package com.liteflow.security;
 
-import com.liteflow.model.auth.Role;
-import com.liteflow.model.auth.User;
+import com.liteflow.modules.auth.model.Role;
+import com.liteflow.modules.auth.model.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

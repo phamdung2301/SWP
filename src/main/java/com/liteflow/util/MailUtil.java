@@ -241,7 +241,7 @@ public class MailUtil {
             String expectedDelivery,
             double totalAmount,
             String notes,
-            java.util.List<com.liteflow.model.procurement.PurchaseOrderItem> items) 
+            java.util.List<com.liteflow.modules.procurement.model.PurchaseOrderItem> items) 
             throws MessagingException, UnsupportedEncodingException {
         
         Properties props = new Properties();
@@ -282,7 +282,7 @@ public class MailUtil {
             itemsTableHtml.append("<tbody>");
             
             int stt = 1;
-            for (com.liteflow.model.procurement.PurchaseOrderItem item : items) {
+            for (com.liteflow.modules.procurement.model.PurchaseOrderItem item : items) {
                 double itemTotal = item.getQuantity() * item.getUnitPrice();
                 String formattedUnitPrice = df.format(item.getUnitPrice()) + " VNĐ";
                 String formattedItemTotal = df.format(itemTotal) + " VNĐ";

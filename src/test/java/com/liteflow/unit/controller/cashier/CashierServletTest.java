@@ -1,8 +1,8 @@
 package com.liteflow.unit.controller.cashier;
 
-import com.liteflow.controller.cashier.CashierServlet;
-import com.liteflow.dao.BaseDAO;
-import com.liteflow.model.inventory.*;
+import com.liteflow.modules.reservation.controller.CashierServlet;
+import com.liteflow.modules.core.dao.BaseDAO;
+import com.liteflow.modules.inventory.model.*;
 import com.liteflow.unit.base.UnitTestBase;
 import com.liteflow.utils.TestDataBuilder;
 import com.google.gson.Gson;

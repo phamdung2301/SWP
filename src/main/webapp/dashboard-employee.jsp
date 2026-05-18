@@ -3,7 +3,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.DayOfWeek" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="com.liteflow.model.timesheet.EmployeeAttendance" %>
+<%@ page import="com.liteflow.modules.hr.model.EmployeeAttendance" %>
 
 <jsp:include page="includes/header.jsp">
   <jsp:param name="page" value="dashboard-employee" />

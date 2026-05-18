@@ -1,7 +1,8 @@
 package com.liteflow.filter;
 
-import com.liteflow.model.auth.User;
-import com.liteflow.service.auth.AuditService;
+import com.liteflow.modules.auth.model.User;
+import com.liteflow.modules.auth.service.AuditService;
+import com.liteflow.modules.auth.service.UserService;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -27,13 +28,13 @@ public class LogoutFilter extends BaseFilter {
             if (s instanceof User) {
                 u = (User) s;
             } else if (s instanceof java.util.UUID) {
-                u = new com.liteflow.service.auth.UserService().getUserById((java.util.UUID) s).orElse(null);
+                u = new UserService().getUserById((java.util.UUID) s).orElse(null);
             } else if (s instanceof String) {
                 String sval = (String) s;
                 try {
-                    u = new com.liteflow.service.auth.UserService().getUserById(java.util.UUID.fromString(sval)).orElse(null);
+                    u = new UserService().getUserById(java.util.UUID.fromString(sval)).orElse(null);
                 } catch (IllegalArgumentException ex) {
-                    u = new com.liteflow.service.auth.UserService().findByEmail(sval);
+                    u = new UserService().findByEmail(sval);
                 }
             }
         }

@@ -1,8 +1,8 @@
 package com.liteflow.unit.service.inventory;
 
-import com.liteflow.dao.BaseDAO;
-import com.liteflow.model.inventory.*;
-import com.liteflow.service.inventory.ReservationService;
+import com.liteflow.modules.core.dao.BaseDAO;
+import com.liteflow.modules.inventory.model.*;
+import com.liteflow.modules.inventory.service.ReservationService;
 import com.liteflow.unit.base.UnitTestBase;
 import com.liteflow.utils.TestDataBuilder;
 import org.junit.jupiter.api.AfterEach;

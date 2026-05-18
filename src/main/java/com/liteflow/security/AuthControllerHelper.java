@@ -1,10 +1,10 @@
 package com.liteflow.security;
 
-import com.liteflow.model.auth.User;
-import com.liteflow.model.auth.UserSession;
-import com.liteflow.service.auth.AuditService;
-import com.liteflow.service.auth.OtpService;
-import com.liteflow.service.auth.UserService;
+import com.liteflow.modules.auth.model.User;
+import com.liteflow.modules.auth.model.UserSession;
+import com.liteflow.modules.auth.service.AuditService;
+import com.liteflow.modules.auth.service.OtpService;
+import com.liteflow.modules.auth.service.UserService;
 import jakarta.servlet.http.Cookie;
 
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,10 +1,10 @@
 package com.liteflow.filter;
 
-import com.liteflow.model.auth.User;
+import com.liteflow.modules.auth.model.User;
 import com.liteflow.security.JwtUtil;
-import com.liteflow.service.employee.EmployeeService;
-import com.liteflow.service.auth.AuditService;
-import com.liteflow.service.auth.UserService;
+import com.liteflow.modules.hr.service.EmployeeService;
+import com.liteflow.modules.auth.service.AuditService;
+import com.liteflow.modules.auth.service.UserService;
 import io.jsonwebtoken.JwtException;
 
 import jakarta.servlet.*;
@@ -24,30 +24,50 @@ public class AuthenticationFilter extends BaseFilter {
     private static final Map<String, Set<String>> ROLE_FUNCTIONS = new HashMap<>();
 
     static {
-        ROLE_FUNCTIONS.put("Cashier", new HashSet<>(Arrays.asList("/pos", "/sales", "/cart", "/checkout")));
-        ROLE_FUNCTIONS.put("Inventory Manager", new HashSet<>(Arrays.asList("/inventory", "/products", "/stock", "/purchaseOrders")));
-        ROLE_FUNCTIONS.put("Procurement Officer", new HashSet<>(Arrays.asList("/purchaseOrders", "/suppliers", "/invoices")));
-        ROLE_FUNCTIONS.put("HR Officer", new HashSet<>(Arrays.asList("/employees", "/payroll", "/timesheets", "/leaveRequests")));
-        // Allow employees to access their own user pages and dashboard
+        // Thu ngân (Cashier)
+        ROLE_FUNCTIONS.put("Cashier", new HashSet<>(Arrays.asList(
+            "/cashier", "/cart", "/sales", "/checkout", "/roomtable", "/reception"
+        )));
+
+        // Nhà bếp (Kitchen)
+        ROLE_FUNCTIONS.put("Kitchen", new HashSet<>(Arrays.asList(
+            "/kitchen", "/api/kitchen"
+        )));
+
+        // Quản lý kho (Inventory Manager)
+        ROLE_FUNCTIONS.put("Inventory Manager", new HashSet<>(Arrays.asList(
+            "/inventory", "/products", "/setprice", "/stock"
+        )));
+
+        // Mua hàng (Procurement Officer)
+        ROLE_FUNCTIONS.put("Procurement Officer", new HashSet<>(Arrays.asList(
+            "/procurement", "/suppliers", "/invoices"
+        )));
+
+        // Nhân sự (HR Officer)
+        ROLE_FUNCTIONS.put("HR Officer", new HashSet<>(Arrays.asList(
+            "/employees", "/employee", "/schedule", "/attendance", "/payroll", "/leaveRequests"
+        )));
+
+        // Nhân viên (Employee) - được phép truy cập các trang cá nhân
         ROLE_FUNCTIONS.put("Employee", new HashSet<>(Arrays.asList(
-                "/dashboard",
+                "/dashboard-employee",
                 "/schedule",
+                "/attendance",
+                "/employee/paysheet",
                 "/user/profile",
                 "/user/timesheet",
                 "/user/payroll",
-                "/api/notices"  // Employee có thể xem thông báo
+                "/api/notices"
         )));
-        ROLE_FUNCTIONS.put("Admin", new HashSet<>(Arrays.asList(
-                "/*",
-                "/api/send-notification",  // Admin có thể gửi thông báo
-                "/api/notices"  // Admin có thể xem thông báo
-        ))); // full quyền
+
+        // Admin & Owner có toàn quyền
+        ROLE_FUNCTIONS.put("Admin", new HashSet<>(Arrays.asList("/*")));
+        ROLE_FUNCTIONS.put("Owner", new HashSet<>(Arrays.asList("/*")));
 
         // ============================================================
         // 🆕 PHÂN QUYỀN MODULE PROCUREMENT (THÊM MỚI)
         // ============================================================
-        // Cho phép truy cập các đường dẫn trong module Procurement:
-        // /procurement/supplier, /procurement/po, /procurement/gr ...
         Set<String> procurementPaths = new HashSet<>(Arrays.asList(
                 "/procurement",
                 "/procurement/dashboard",
@@ -156,8 +176,7 @@ public class AuthenticationFilter extends BaseFilter {
                 Object sUser = session.getAttribute("UserLogin");
                 java.util.logging.Logger.getLogger(AuthenticationFilter.class.getName()).info("Session UserLogin attribute: " + sUser + " (type: " + (sUser != null ? sUser.getClass().getSimpleName() : "null") + ")");
                 if (sUser instanceof User) {
-                    User u = (User) sUser;
-                    user = u;
+                    user = (User) sUser;
                 } else if (sUser instanceof java.util.UUID) {
                     user = userService.getUserById((java.util.UUID) sUser).orElse(null);
                 } else if (sUser instanceof String) {

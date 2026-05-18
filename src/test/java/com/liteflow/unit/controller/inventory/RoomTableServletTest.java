@@ -2,9 +2,11 @@ package com.liteflow.unit.controller.inventory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.liteflow.controller.inventory.RoomTableServlet;
-import com.liteflow.dao.BaseDAO;
-import com.liteflow.model.inventory.*;
+import com.liteflow.modules.inventory.controller.RoomTableServlet;
+import com.liteflow.modules.core.dao.BaseDAO;
+
+import com.liteflow.modules.inventory.model.Room;
+import com.liteflow.modules.inventory.model.Table;
 import com.liteflow.unit.base.UnitTestBase;
 import com.liteflow.utils.TestDataBuilder;
 import jakarta.servlet.RequestDispatcher;

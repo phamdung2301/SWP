@@ -1,9 +1,9 @@
 package com.liteflow.unit.service.inventory;
 
-import com.liteflow.dao.BaseDAO;
-import com.liteflow.model.inventory.Room;
-import com.liteflow.model.inventory.Table;
-import com.liteflow.service.inventory.RoomTableService;
+import com.liteflow.modules.core.dao.BaseDAO;
+import com.liteflow.modules.inventory.model.Room;
+import com.liteflow.modules.inventory.model.Table;
+import com.liteflow.modules.inventory.service.RoomTableService;
 import com.liteflow.unit.base.UnitTestBase;
 import com.liteflow.utils.TestDataBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -147,7 +147,7 @@ public class RoomTableServiceTest extends UnitTestBase {
 
         // Assert
         assertNotNull(rooms);
-        assertTrue(rooms.size() >= 1); // At least our test room
+        assertFalse(rooms.isEmpty()); // At least our test room
 
         // Verify our test room is in the list
         boolean foundTestRoom = rooms.stream()

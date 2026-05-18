@@ -188,6 +188,51 @@ The system addresses critical pain points in restaurant management by providing:
 
 ---
 
+## 📖 User Stories (Completed Features)
+
+This section summarizes the fully implemented features of the system based on the perspective of the main user roles (Admin, Manager, Cashier, Kitchen Staff, Employee).
+
+### 1. 🔐 Authentication & Authorization
+* **As a user**, I can securely log into the system using my Email/Password or Google OAuth2.
+* **As a user**, I am required to use Two-Factor Authentication (2FA/OTP) via email to protect my account.
+* **As a user**, I can recover my password using an email OTP if I forget it.
+* **As an Admin**, I can control access based on Roles (Admin, Manager, Cashier, Kitchen, Employee) to ensure staff only see features they are permitted to access.
+
+### 2. 💰 Point of Sale (POS) & Cashier
+* **As a Cashier**, I can view a real-time table/room map to know which tables are available or occupied.
+* **As a Cashier**, I can create orders for customers, browse an interactive menu, and send requests directly to the kitchen.
+* **As a Cashier**, I can split bills, merge tables, or apply discount codes for customers.
+* **As a Cashier**, I can process payments using various methods (Cash, Card, Transfer, or VNPay online gateway) and generate invoices.
+
+### 3. 🍳 Kitchen Display System (KDS)
+* **As Kitchen Staff**, I can view a real-time order queue on a dedicated screen to see pending dishes in chronological order.
+* **As Kitchen Staff**, I can update the status of dishes (Pending → Preparing → Ready) to notify cashiers and servers.
+* **As Kitchen Staff**, I receive immediate notifications (visual/audio) when a new or priority order arrives.
+
+### 4. 📦 Inventory & Procurement
+* **As a Manager**, I can manage the product/ingredient catalog, variants (sizes, types), and pricing from the web UI.
+* **As a Manager**, I can track real-time stock levels and receive low-stock alerts when ingredients are running out.
+* **As a Manager**, I can create Purchase Orders (PO) to restock from suppliers saved in the system.
+* **As a Manager**, I receive automated PO suggestions from the system when stock is depleted.
+
+### 5. 👥 HR, Timesheet & Payroll
+* **As an Employee**, I can clock in and clock out daily to record my working hours.
+* **As an Employee**, I can view my work schedule, submit leave requests, or report forgotten clock-ins.
+* **As a Manager**, I can schedule shifts for employees and approve or reject leave requests.
+* **As a Manager/Accountant**, I can rely on the system to automatically calculate payroll based on the compensation type (fixed, hourly, per-shift) and attendance data.
+
+### 6. 📊 Analytics & Reporting
+* **As an Admin/Manager**, I can view a real-time dashboard displaying key business metrics (revenue, profit, costs).
+* **As an Admin/Manager**, I can generate detailed daily/weekly/monthly reports and analyze revenue by category or employee performance.
+* **As an Admin/Manager**, I can leverage AI forecasting to predict future revenue and inventory demand.
+
+### 7. 🤖 Smart Alerts & AI Chatbot
+* **As a user**, I can receive critical system notifications (stock arrivals, revenue drops, pending approvals) via multiple channels like Email, Telegram, Slack, or In-App.
+* **As a Manager/Admin**, I can converse with an AI Chatbot (GPT-powered) to quickly extract report data and summarize daily business performance without manually reading metrics.
+* **As a Manager**, I can receive automated AI-summarized alerts grouping important system events.
+
+---
+
 ## 🧩 Project Structure
 
 ```

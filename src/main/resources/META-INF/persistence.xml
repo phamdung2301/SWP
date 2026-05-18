@@ -3,68 +3,77 @@
   <persistence-unit name="LiteFlowPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <!-- Auth entities -->
-    <class>com.liteflow.model.auth.User</class>
-    <class>com.liteflow.model.auth.UserSession</class>
-    <class>com.liteflow.model.auth.OtpToken</class>
-    <class>com.liteflow.model.auth.AuditLog</class>
-    <class>com.liteflow.model.auth.Role</class>
-    <class>com.liteflow.model.auth.Employee</class>
-    <class>com.liteflow.model.auth.UserRole</class>
+    <class>com.liteflow.modules.auth.model.User</class>
+    <class>com.liteflow.modules.auth.model.UserSession</class>
+    <class>com.liteflow.modules.auth.model.OtpToken</class>
+    <class>com.liteflow.modules.auth.model.AuditLog</class>
+    <class>com.liteflow.modules.auth.model.Role</class>
+    <class>com.liteflow.modules.auth.model.Employee</class>
+    <class>com.liteflow.modules.auth.model.UserRole</class>
     <!-- Scheduling entities -->
-    <class>com.liteflow.model.auth.ShiftTemplate</class>
-    <class>com.liteflow.model.auth.EmployeeShiftAssignment</class>
-    <class>com.liteflow.model.auth.EmployeeShift</class>
+    <class>com.liteflow.modules.auth.model.ShiftTemplate</class>
+    <class>com.liteflow.modules.auth.model.EmployeeShiftAssignment</class>
+    <class>com.liteflow.modules.auth.model.EmployeeShift</class>
     <!-- Inventory entities -->
-    <class>com.liteflow.model.inventory.Category</class>
-    <class>com.liteflow.model.inventory.Inventory</class>
-    <class>com.liteflow.model.inventory.InventoryLog</class>
-    <class>com.liteflow.model.inventory.Order</class>
-    <class>com.liteflow.model.inventory.OrderDetail</class>
-    <class>com.liteflow.model.inventory.Product</class>
-    <class>com.liteflow.model.inventory.ProductCategory</class>
-    <class>com.liteflow.model.inventory.ProductStock</class>
-    <class>com.liteflow.model.inventory.ProductVariant</class>
-    <class>com.liteflow.model.inventory.Room</class>
-    <class>com.liteflow.model.inventory.Table</class>
-    <class>com.liteflow.model.inventory.Reservation</class>
-    <class>com.liteflow.model.inventory.ReservationItem</class>
-    <class>com.liteflow.model.inventory.TableSession</class>
-    <class>com.liteflow.model.inventory.PaymentTransaction</class>
-    <class>com.liteflow.model.inventory.UserInteraction</class>
+    <class>com.liteflow.modules.inventory.model.Category</class>
+    <class>com.liteflow.modules.inventory.model.Inventory</class>
+    <class>com.liteflow.modules.inventory.model.InventoryLog</class>
+    <class>com.liteflow.modules.inventory.model.Order</class>
+    <class>com.liteflow.modules.inventory.model.OrderDetail</class>
+    <class>com.liteflow.modules.inventory.model.Product</class>
+    <class>com.liteflow.modules.inventory.model.ProductCategory</class>
+    <class>com.liteflow.modules.inventory.model.ProductStock</class>
+    <class>com.liteflow.modules.inventory.model.ProductVariant</class>
+    <class>com.liteflow.modules.inventory.model.Room</class>
+    <class>com.liteflow.modules.inventory.model.Table</class>
+    <class>com.liteflow.modules.inventory.model.Reservation</class>
+    <class>com.liteflow.modules.inventory.model.ReservationItem</class>
+    <class>com.liteflow.modules.inventory.model.TableSession</class>
+    <class>com.liteflow.modules.inventory.model.PaymentTransaction</class>
+    <class>com.liteflow.modules.inventory.model.UserInteraction</class>
     <!-- Payroll entities -->
-    <class>com.liteflow.model.payroll.PayPeriod</class>
-    <class>com.liteflow.model.payroll.PayrollRun</class>
-    <class>com.liteflow.model.payroll.PayrollEntry</class>
-    <class>com.liteflow.model.payroll.PayrollAdjustment</class>
-    <class>com.liteflow.model.payroll.PayPolicy</class>
-    <class>com.liteflow.model.payroll.EmployeeCompensation</class>
+    <class>com.liteflow.modules.hr.model.PayPeriod</class>
+    <class>com.liteflow.modules.hr.model.PayrollRun</class>
+    <class>com.liteflow.modules.hr.model.PayrollEntry</class>
+    <class>com.liteflow.modules.hr.model.PayrollAdjustment</class>
+    <class>com.liteflow.modules.hr.model.PayPolicy</class>
+    <class>com.liteflow.modules.hr.model.EmployeeCompensation</class>
     <!-- Timesheet entities -->
-    <class>com.liteflow.model.timesheet.ShiftPayRule</class>
-    <class>com.liteflow.model.timesheet.EmployeeShiftTimesheet</class>
-    <class>com.liteflow.model.timesheet.EmployeeAttendance</class>
-    <class>com.liteflow.model.timesheet.PersonalSchedule</class>
-    <class>com.liteflow.model.timesheet.ForgotClockRequest</class>
-    <class>com.liteflow.model.timesheet.LeaveRequest</class>
+    <class>com.liteflow.modules.hr.model.ShiftPayRule</class>
+    <class>com.liteflow.modules.hr.model.EmployeeShiftTimesheet</class>
+    <class>com.liteflow.modules.hr.model.EmployeeAttendance</class>
+    <class>com.liteflow.modules.hr.model.PersonalSchedule</class>
+    <class>com.liteflow.modules.hr.model.ForgotClockRequest</class>
+    <class>com.liteflow.modules.hr.model.LeaveRequest</class>
     <!-- Procurement entities -->
-    <class>com.liteflow.model.procurement.Supplier</class>
-    <class>com.liteflow.model.procurement.SupplierSLA</class>
-    <class>com.liteflow.model.procurement.PurchaseOrder</class>
-    <class>com.liteflow.model.procurement.PurchaseOrderItem</class>
-    <class>com.liteflow.model.procurement.GoodsReceipt</class>
-    <class>com.liteflow.model.procurement.GoodsReceiptItem</class>
-    <class>com.liteflow.model.procurement.Invoice</class>
-    <class>com.liteflow.model.procurement.InvoiceItem</class>
+    <class>com.liteflow.modules.procurement.model.Supplier</class>
+    <class>com.liteflow.modules.procurement.model.SupplierSLA</class>
+    <class>com.liteflow.modules.procurement.model.PurchaseOrder</class>
+    <class>com.liteflow.modules.procurement.model.PurchaseOrderItem</class>
+    <class>com.liteflow.modules.procurement.model.GoodsReceipt</class>
+    <class>com.liteflow.modules.procurement.model.GoodsReceiptItem</class>
+    <class>com.liteflow.modules.procurement.model.Invoice</class>
+    <class>com.liteflow.modules.procurement.model.InvoiceItem</class>
     <!-- External info entities -->
-    <class>com.liteflow.model.external.HolidayCalendar</class>
-    <class>com.liteflow.model.external.ExchangeRate</class>
+    <class>com.liteflow.modules.core.model.HolidayCalendar</class>
+    <class>com.liteflow.modules.core.model.ExchangeRate</class>
     <!-- Alert System entities -->
-    <class>com.liteflow.model.alert.AlertConfiguration</class>
-    <class>com.liteflow.model.alert.NotificationChannel</class>
-    <class>com.liteflow.model.alert.AlertHistory</class>
-    <class>com.liteflow.model.alert.GPTInteraction</class>
-    <class>com.liteflow.model.alert.UserAlertPreference</class>
+    <class>com.liteflow.modules.core.model.AlertConfiguration</class>
+    <class>com.liteflow.modules.core.model.NotificationChannel</class>
+    <class>com.liteflow.modules.core.model.AlertHistory</class>
+    <class>com.liteflow.modules.core.model.GPTInteraction</class>
+    <class>com.liteflow.modules.core.model.UserAlertPreference</class>
     <!-- Notice Board entities -->
-    <class>com.liteflow.model.notice.Notice</class>
+    <class>com.liteflow.modules.hr.model.Notice</class>
+    <!-- Reservation & Hotel entities -->
+    <class>com.liteflow.modules.reservation.model.Building</class>
+    <class>com.liteflow.modules.reservation.model.Floor</class>
+    <class>com.liteflow.modules.reservation.model.RoomType</class>
+    <class>com.liteflow.modules.reservation.model.HotelRoom</class>
+    <class>com.liteflow.modules.reservation.model.GuestProfile</class>
+    <class>com.liteflow.modules.reservation.model.HotelReservation</class>
+    <class>com.liteflow.modules.reservation.model.RoomStatusHistory</class>
+    <class>com.liteflow.modules.reservation.model.GuestPreference</class>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=LiteFlowDBO;encrypt=true;trustServerCertificate=true;"/>

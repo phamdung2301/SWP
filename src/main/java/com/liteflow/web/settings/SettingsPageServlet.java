@@ -1,7 +1,7 @@
 package com.liteflow.web.settings;
 
-import com.liteflow.model.auth.User;
-import com.liteflow.service.auth.UserService;
+import com.liteflow.modules.auth.model.User;
+import com.liteflow.modules.auth.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -1,12 +1,14 @@
 package com.liteflow.job;
 
-import com.liteflow.service.inventory.ReservationService;
+import com.liteflow.modules.inventory.service.ReservationService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Reservation Overdue Job
@@ -15,6 +17,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class ReservationOverdueJob implements Job {
 
+    private static final Logger LOGGER = Logger.getLogger(ReservationOverdueJob.class.getName());
     private static final int OVERDUE_THRESHOLD_MINUTES = 30;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -37,9 +40,7 @@ public class ReservationOverdueJob implements Job {
             System.out.println("===========================================");
             
         } catch (Exception e) {
-            System.err.println("❌ Error in Reservation Overdue Job:");
-            System.err.println("   " + e.getMessage());
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "❌ Error in Reservation Overdue Job: " + e.getMessage(), e);
             System.out.println("===========================================");
             throw new JobExecutionException("Reservation overdue job failed", e);
         }

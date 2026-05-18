@@ -1,9 +1,9 @@
 package com.liteflow.unit.service.inventory;
 
 import com.google.gson.Gson;
-import com.liteflow.dao.BaseDAO;
-import com.liteflow.model.inventory.*;
-import com.liteflow.service.inventory.OrderService;
+import com.liteflow.modules.core.dao.BaseDAO;
+import com.liteflow.modules.inventory.model.*;
+import com.liteflow.modules.inventory.service.OrderService;
 import com.liteflow.unit.base.UnitTestBase;
 import com.liteflow.utils.TestDataBuilder;
 import org.junit.jupiter.api.AfterEach;

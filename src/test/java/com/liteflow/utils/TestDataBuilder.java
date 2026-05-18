@@ -1,7 +1,7 @@
 package com.liteflow.utils;
 
-import com.liteflow.model.inventory.*;
-import com.liteflow.model.auth.User;
+import com.liteflow.modules.inventory.model.*;
+import com.liteflow.modules.auth.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
