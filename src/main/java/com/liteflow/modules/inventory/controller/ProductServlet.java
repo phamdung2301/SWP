@@ -370,6 +370,7 @@ public class ProductServlet extends HttpServlet {
                 String priceStr = request.getParameter("price");
                 String stockStr = request.getParameter("stock");
                 String size = request.getParameter("size");
+                String originalSize = request.getParameter("originalSize");
 
                 try {
                     java.util.UUID productId = java.util.UUID.fromString(productIdStr);
@@ -388,6 +389,94 @@ public class ProductServlet extends HttpServlet {
                         product.setName(name.trim());
                     }
                     if (description != null) product.setDescription(description.trim());
+                    
+                    // Update Product Type
+                    String productType = request.getParameter("productType");
+                    if (productType != null && !productType.trim().isEmpty()) {
+                        product.setProductType(productType.trim());
+                    }
+
+                    // Update Product Category association
+                    String categoryName = request.getParameter("category");
+                    if (categoryName != null && !categoryName.trim().isEmpty()) {
+                        categoryName = categoryName.trim();
+                        var em = com.liteflow.modules.core.dao.BaseDAO.emf.createEntityManager();
+                        var tx = em.getTransaction();
+                        try {
+                            tx.begin();
+                            
+                            // Find or create Category
+                            com.liteflow.modules.inventory.model.Category category = null;
+                            var catList = em.createQuery("SELECT c FROM Category c WHERE c.name = :name", com.liteflow.modules.inventory.model.Category.class)
+                                    .setParameter("name", categoryName)
+                                    .getResultList();
+                            if (!catList.isEmpty()) {
+                                category = catList.get(0);
+                            } else {
+                                category = new com.liteflow.modules.inventory.model.Category();
+                                category.setName(categoryName);
+                                em.persist(category);
+                            }
+                            
+                            // Check existing ProductCategory for this product
+                            var prodCatList = em.createQuery("SELECT pc FROM ProductCategory pc WHERE pc.product.productId = :pid", com.liteflow.modules.inventory.model.ProductCategory.class)
+                                    .setParameter("pid", productId)
+                                    .getResultList();
+                            
+                            if (!prodCatList.isEmpty()) {
+                                boolean alreadyHasCat = false;
+                                for (int i = 0; i < prodCatList.size(); i++) {
+                                    var pc = prodCatList.get(i);
+                                    if (pc.getCategory().getCategoryId().equals(category.getCategoryId())) {
+                                        alreadyHasCat = true;
+                                    } else {
+                                        em.remove(pc); // Clean up old/different associations
+                                    }
+                                }
+                                
+                                if (!alreadyHasCat) {
+                                    com.liteflow.modules.inventory.model.ProductCategory newPc = new com.liteflow.modules.inventory.model.ProductCategory();
+                                    newPc.setProduct(product);
+                                    newPc.setCategory(category);
+                                    newPc.setProductCategoryId(java.util.UUID.randomUUID());
+                                    em.persist(newPc);
+                                }
+                            } else {
+                                // Create new association
+                                com.liteflow.modules.inventory.model.ProductCategory newPc = new com.liteflow.modules.inventory.model.ProductCategory();
+                                newPc.setProduct(product);
+                                newPc.setCategory(category);
+                                newPc.setProductCategoryId(java.util.UUID.randomUUID());
+                                em.persist(newPc);
+                            }
+                            
+                            tx.commit();
+                        } catch (Exception catEx) {
+                            if (tx.isActive()) tx.rollback();
+                            System.err.println("Error updating product category: " + catEx.getMessage());
+                        } finally {
+                            em.close();
+                        }
+                    } else {
+                        // If categoryName is empty or null, remove all associations
+                        var em = com.liteflow.modules.core.dao.BaseDAO.emf.createEntityManager();
+                        var tx = em.getTransaction();
+                        try {
+                            tx.begin();
+                            var prodCatList = em.createQuery("SELECT pc FROM ProductCategory pc WHERE pc.product.productId = :pid", com.liteflow.modules.inventory.model.ProductCategory.class)
+                                    .setParameter("pid", productId)
+                                    .getResultList();
+                            for (var pc : prodCatList) {
+                                em.remove(pc);
+                            }
+                            tx.commit();
+                        } catch (Exception catEx) {
+                            if (tx.isActive()) tx.rollback();
+                            System.err.println("Error removing product category: " + catEx.getMessage());
+                        } finally {
+                            em.close();
+                        }
+                    }
                     
                     // Update status - Tự động cập nhật nếu stockAmount = 0
                     String status = request.getParameter("status");
@@ -450,36 +539,67 @@ public class ProductServlet extends HttpServlet {
 
                     // Update price and stock for the selected size
                     com.liteflow.modules.inventory.dao.ProductVariantDAO variantDAO = new com.liteflow.modules.inventory.dao.ProductVariantDAO();
-                    com.liteflow.modules.inventory.model.ProductVariant variant = variantDAO.findByProductAndSize(productId, size);
+                    String sizeToFind = (originalSize != null && !originalSize.isBlank()) ? originalSize : size;
+                    com.liteflow.modules.inventory.model.ProductVariant variant = variantDAO.findByProductAndSize(productId, sizeToFind);
+                    
+                    double priceVal = 0.0;
+                    if (priceStr != null && !priceStr.isBlank()) {
+                        try {
+                            String cleanPriceStr = priceStr.trim().replace(".", "").replace(",", "").replace(" ", "");
+                            priceVal = Double.parseDouble(cleanPriceStr);
+                        } catch (NumberFormatException ignored) {}
+                    }
+                    
+                    int stockVal = 0;
+                    if (stockStr != null && !stockStr.isBlank()) {
+                        try {
+                            stockVal = Integer.parseInt(stockStr.trim());
+                        } catch (NumberFormatException ignored) {}
+                    }
+
                     if (variant != null) {
+                        // If size changed, update it
+                        if (size != null && !size.isBlank() && !size.equals(variant.getSize())) {
+                            com.liteflow.modules.inventory.model.ProductVariant existingNewSizeVariant = variantDAO.findByProductAndSize(productId, size);
+                            if (existingNewSizeVariant == null) {
+                                variant.setSize(size);
+                            }
+                        }
+
                         if (priceStr != null && !priceStr.isBlank()) {
-                            try {
-                                double price = Double.parseDouble(priceStr.trim());
-                                variant.setPrice(java.math.BigDecimal.valueOf(price));
-                            } catch (NumberFormatException ignored) {}
+                            variant.setPrice(java.math.BigDecimal.valueOf(priceVal));
                         }
 
                         if (stockStr != null && !stockStr.isBlank()) {
+                            com.liteflow.modules.inventory.dao.ProductStockDAO stockDAO = new com.liteflow.modules.inventory.dao.ProductStockDAO();
+                            var em = com.liteflow.modules.core.dao.BaseDAO.emf.createEntityManager();
                             try {
-                                int stock = Integer.parseInt(stockStr.trim());
-                                com.liteflow.modules.inventory.dao.ProductStockDAO stockDAO = new com.liteflow.modules.inventory.dao.ProductStockDAO();
-                                // Tìm stock theo variant và inventory mặc định
-                                var em = com.liteflow.modules.core.dao.BaseDAO.emf.createEntityManager();
-                                try {
-                                    var stocks = em.createQuery("SELECT ps FROM ProductStock ps WHERE ps.productVariant.productVariantId = :pvid", com.liteflow.modules.inventory.model.ProductStock.class)
-                                            .setParameter("pvid", variant.getProductVariantId())
-                                            .getResultList();
-                                    if (!stocks.isEmpty()) {
-                                        var ps = stocks.get(0);
-                                        ps.setAmount(stock);
-                                        stockDAO.update(ps);
+                                var stocks = em.createQuery("SELECT ps FROM ProductStock ps WHERE ps.productVariant.productVariantId = :pvid", com.liteflow.modules.inventory.model.ProductStock.class)
+                                        .setParameter("pvid", variant.getProductVariantId())
+                                        .getResultList();
+                                if (!stocks.isEmpty()) {
+                                    var ps = stocks.get(0);
+                                    ps.setAmount(stockVal);
+                                    stockDAO.update(ps);
+                                } else {
+                                    com.liteflow.modules.inventory.model.Inventory defaultInventory = getOrCreateDefaultInventory();
+                                    if (defaultInventory != null) {
+                                        com.liteflow.modules.inventory.model.ProductStock productStock = new com.liteflow.modules.inventory.model.ProductStock();
+                                        productStock.setProductVariant(variant);
+                                        productStock.setInventory(defaultInventory);
+                                        productStock.setAmount(stockVal);
+                                        stockDAO.insert(productStock);
                                     }
-                                } finally {
-                                    em.close();
                                 }
-                            } catch (NumberFormatException ignored) {}
+                            } finally {
+                                em.close();
+                            }
                         }
                         variantDAO.update(variant);
+                    } else {
+                        // If variant does not exist, auto-create it!
+                        String finalSize = (size != null && !size.isBlank()) ? size.trim() : "M";
+                        createProductVariantAndStock(product, finalSize, priceVal, stockVal);
                     }
 
                     HttpSession session = request.getSession();

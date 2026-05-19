@@ -12,7 +12,22 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
     public ProductDAO() {
         super(Product.class, UUID.class);
     }
-    
+
+    // ========== THÊM METHOD NÀY ==========
+    /**
+     * Count total products in database
+     */
+    public long count() {
+        var em = emf.createEntityManager();
+        try {
+            String jpql = "SELECT COUNT(p) FROM Product p";
+            return em.createQuery(jpql, Long.class).getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+    // ===================================
+
     /**
      * Get all distinct units from products
      */
@@ -25,7 +40,7 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
             em.close();
         }
     }
-    
+
     /**
      * Find category by name (returns first match or null)
      */
@@ -43,14 +58,14 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
             em.close();
         }
     }
-    
+
     /**
      * Check if category exists by name
      */
     public boolean categoryExists(String name) {
         return findCategoryByName(name) != null;
     }
-    
+
     /**
      * Add new category or return existing one
      */
@@ -59,12 +74,12 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
         if (existing != null) {
             return existing;
         }
-        
+
         // Create new category
         Category category = new Category();
         category.setName(categoryName.trim());
         category.setDescription(null);
-        
+
         // Use EntityManager directly to insert Category
         var em = emf.createEntityManager();
         var tx = em.getTransaction();
@@ -83,7 +98,7 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
             em.close();
         }
     }
-    
+
     /**
      * Insert ProductCategory into database
      */
@@ -107,7 +122,7 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
             em.close();
         }
     }
-    
+
     /**
      * Check if category is being used by any product
      */
@@ -122,7 +137,7 @@ public class ProductDAO extends GenericDAO<Product, UUID> {
             em.close();
         }
     }
-    
+
     /**
      * Delete category from database
      */

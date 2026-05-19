@@ -162,12 +162,16 @@ public final class AccessPolicy {
                 "/kitchen",
                 "/api/kitchen",
                 "/api/order/status",
-                "/api/order/table"
+                "/api/order/table",
+                "/dashboard",
+                "/dashboard.jsp"
         ));
 
         m.put("Employee", Arrays.asList(
                 "/dashboard-employee",
                 "/dashboard-employee.jsp",
+                "/dashboard",
+                "/dashboard.jsp",
                 "/schedule",
                 "/schedule.jsp",
                 "/attendance",
@@ -178,7 +182,23 @@ public final class AccessPolicy {
                 "/api/leave-request",
                 "/api/forgot-clock",
                 "/api/timesheet",
-                "/api/employee/salary-summary"
+                "/api/employee/salary-summary",
+                // POS / Cashier access for employees
+                "/cashier",
+                "/cart",
+                "/checkout",
+                "/sales",
+                "/roomtable",
+                "/reception",
+                "/api/cashier",
+                "/api/order",
+                "/api/payment",
+                "/api/reservation",
+                "/products",
+                "/inventory/productlist",
+                "/inventory/table-fragment",
+                "/payment/",
+                "/sales/"
         ));
 
         return Collections.unmodifiableMap(m);

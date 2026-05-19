@@ -541,7 +541,7 @@
         <div class="modal-body">
             <div class="form-group">
                 <label for="newCategoryName">Tên danh mục *</label>
-                <input type="text" id="newCategoryName" name="newCategoryName" 
+                <input type="text" id="newCategoryName" name="newCategoryName"
                        placeholder="Nhập tên danh mục">
             </div>
         </div>

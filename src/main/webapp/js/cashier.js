@@ -1163,8 +1163,15 @@ function addToCart(variantId) {
     window.notificationManager?.show('Vui lòng chọn bàn trước khi thêm món!', 'warning', 'Chưa chọn bàn');
     return;
   }
+
+  // Handle case where product has no variant (variantId is "null" string from HTML template)
+  if (!variantId || variantId === 'null') {
+    window.notificationManager?.show('Món ăn này chưa được thiết lập giá (chưa có biến thể/kích cỡ). Vui lòng cấu hình trong trang Admin!', 'error', 'Lỗi cấu hình món ăn');
+    return;
+  }
   
-  const item = menuItems.find(i => i.variantId === variantId);
+  // Use String() for safe comparison between UUID string and parsed JSON primitive
+  const item = menuItems.find(i => String(i.variantId) === String(variantId));
   if (!item) {
     window.notificationManager?.show('Không tìm thấy món ăn!', 'error', 'Lỗi');
     return;

@@ -159,14 +159,14 @@
 <c:set var="isEmployee" value="false" />
 
 <c:forEach var="role" items="${sessionScope.UserRoles}">
-  <c:if test="${role == 'Admin'}"><c:set var="isAdmin" value="true" /></c:if>
-  <c:if test="${role == 'Owner'}"><c:set var="isOwner" value="true" /></c:if>
-  <c:if test="${role == 'HR Officer'}"><c:set var="isHR" value="true" /></c:if>
-  <c:if test="${role == 'Procurement Officer'}"><c:set var="isProcurement" value="true" /></c:if>
-  <c:if test="${role == 'Inventory Manager'}"><c:set var="isInventory" value="true" /></c:if>
-  <c:if test="${role == 'Cashier'}"><c:set var="isCashier" value="true" /></c:if>
-  <c:if test="${role == 'Kitchen'}"><c:set var="isKitchen" value="true" /></c:if>
-  <c:if test="${role == 'Employee'}"><c:set var="isEmployee" value="true" /></c:if>
+  <c:if test="${role == 'Admin' or role == 'admin'}"><c:set var="isAdmin" value="true" /></c:if>
+  <c:if test="${role == 'Owner' or role == 'owner'}"><c:set var="isOwner" value="true" /></c:if>
+  <c:if test="${role == 'HR Officer' or role == 'hr officer'}"><c:set var="isHR" value="true" /></c:if>
+  <c:if test="${role == 'Procurement Officer' or role == 'procurement officer'}"><c:set var="isProcurement" value="true" /></c:if>
+  <c:if test="${role == 'Inventory Manager' or role == 'inventory manager'}"><c:set var="isInventory" value="true" /></c:if>
+  <c:if test="${role == 'Cashier' or role == 'cashier'}"><c:set var="isCashier" value="true" /></c:if>
+  <c:if test="${role == 'Kitchen' or role == 'kitchen'}"><c:set var="isKitchen" value="true" /></c:if>
+  <c:if test="${role == 'Employee' or role == 'employee'}"><c:set var="isEmployee" value="true" /></c:if>
 </c:forEach>
 
 <c:set var="isSuper" value="${isAdmin || isOwner}" />
@@ -263,14 +263,14 @@
         </c:if>
           
         <!-- Phòng/Bàn -->
-        <c:if test="${isSuper || isCashier}">
+        <c:if test="${isSuper || isCashier || isEmployee}">
           <a href="${pageContext.request.contextPath}/roomtable" class="nav-item ${param.page == 'rooms' ? 'active' : ''}">
             <i class='bx bx-store'></i> Phòng/Bàn
           </a>
         </c:if>
           
         <!-- Giao dịch -->
-        <c:if test="${isSuper || isCashier}">
+        <c:if test="${isSuper || isCashier || isEmployee}">
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle">
               <i class='bx bx-receipt'></i> Giao dịch
@@ -367,7 +367,7 @@
             <i class='bx bxs-bowl-hot'></i>
           </a>
         </c:if>
-        <c:if test="${isSuper || isCashier}">
+        <c:if test="${isSuper || isCashier || isEmployee}">
           <a href="${pageContext.request.contextPath}/reception" class="nav-icon" title="Lễ tân" target="_blank">
             <i class='bx bx-calendar'></i>
           </a>
@@ -377,7 +377,7 @@
             <i class='bx bx-mail-send'></i>
           </div>
         </c:if>
-        <c:if test="${isSuper || isCashier}">
+        <c:if test="${isSuper || isCashier || isEmployee}">
           <a href="${pageContext.request.contextPath}/cashier" class="nav-icon" title="Thu ngân (POS)" target="_blank">
             <i class='bx bx-file'></i>
           </a>

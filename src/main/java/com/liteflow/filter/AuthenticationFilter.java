@@ -26,12 +26,15 @@ public class AuthenticationFilter extends BaseFilter {
     static {
         // Thu ngân (Cashier)
         ROLE_FUNCTIONS.put("Cashier", new HashSet<>(Arrays.asList(
-            "/cashier", "/cart", "/sales", "/checkout", "/roomtable", "/reception"
+            "/cashier", "/cart", "/sales", "/checkout", "/roomtable", "/reception",
+            "/api/cashier", "/api/order", "/api/payment", "/api/reservation",
+            "/payment", "/products", "/inventory/productlist"
         )));
 
         // Nhà bếp (Kitchen)
         ROLE_FUNCTIONS.put("Kitchen", new HashSet<>(Arrays.asList(
-            "/kitchen", "/api/kitchen"
+            "/kitchen", "/api/kitchen", "/api/order/status", "/api/order/table",
+            "/dashboard"
         )));
 
         // Quản lý kho (Inventory Manager)
@@ -49,16 +52,22 @@ public class AuthenticationFilter extends BaseFilter {
             "/employees", "/employee", "/schedule", "/attendance", "/payroll", "/leaveRequests"
         )));
 
-        // Nhân viên (Employee) - được phép truy cập các trang cá nhân
+        // Nhân viên (Employee) - được phép truy cập trang cá nhân + POS (order cho khách)
         ROLE_FUNCTIONS.put("Employee", new HashSet<>(Arrays.asList(
                 "/dashboard-employee",
+                "/dashboard",
                 "/schedule",
                 "/attendance",
                 "/employee/paysheet",
                 "/user/profile",
                 "/user/timesheet",
                 "/user/payroll",
-                "/api/notices"
+                "/api/notices",
+                // POS / Cashier access for employees
+                "/cashier", "/cart", "/sales", "/checkout",
+                "/roomtable", "/reception",
+                "/api/cashier", "/api/order", "/api/payment", "/api/reservation",
+                "/payment", "/products", "/inventory/productlist"
         )));
 
         // Admin & Owner có toàn quyền

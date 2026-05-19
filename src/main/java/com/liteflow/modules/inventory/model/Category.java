@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Category implements Serializable {
 
     @Id
-    @Column(name = "CategoryID", columnDefinition = "uniqueidentifier")
+    @Column(name = "CategoryID", columnDefinition = "uniqueidentifier DEFAULT NEWID()")
     private UUID categoryId;
 
     @Column(name = "Name", nullable = false, length = 100)

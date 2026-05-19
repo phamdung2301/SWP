@@ -553,9 +553,11 @@ function addProduct() {
     document.querySelector('#addProductForm input[name="action"]').value = 'create';
     document.querySelector('#addProductForm .modal-footer button.btn.btn-success').textContent = '✅ Thêm sản phẩm';
     
-    // Reset hidden productId if exists
+    // Reset hidden productId and originalSize if they exist
     const idInput = document.querySelector('#addProductForm input[name="productId"]');
     if (idInput) idInput.remove();
+    const originalSizeInput = document.querySelector('#addProductForm input[name="originalSize"]');
+    if (originalSizeInput) originalSizeInput.remove();
     
     // Reset form
     document.getElementById('addProductForm').reset();
@@ -610,6 +612,12 @@ function closeAddProductModal() {
     if (modal) {
         modal.style.display = 'none';
         document.getElementById('addProductForm').reset();
+        
+        // Remove dynamically added hidden inputs if any
+        const idInput = document.querySelector('#addProductForm input[name="productId"]');
+        if (idInput) idInput.remove();
+        const originalSizeInput = document.querySelector('#addProductForm input[name="originalSize"]');
+        if (originalSizeInput) originalSizeInput.remove();
         
         // Reset image preview
         const imagePreview = document.getElementById('imagePreview');
@@ -929,6 +937,16 @@ function openEditModalFromRow(row) {
         document.getElementById('addProductForm').appendChild(idInput);
     }
     idInput.value = id;
+
+    // Add hidden originalSize input if not exists
+    let originalSizeInput = document.querySelector('#addProductForm input[name="originalSize"]');
+    if (!originalSizeInput) {
+        originalSizeInput = document.createElement('input');
+        originalSizeInput.type = 'hidden';
+        originalSizeInput.name = 'originalSize';
+        document.getElementById('addProductForm').appendChild(originalSizeInput);
+    }
+    originalSizeInput.value = size;
     
     // Prefill fields
     document.getElementById('name').value = name;
